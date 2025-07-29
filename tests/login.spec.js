@@ -35,8 +35,7 @@ test.describe('Testes em sequência', () => {
     await page.getByRole('button', { name: 'Next' }).click();
     await page.locator('#GEN_INPUT_ACCOUNT_CREATE_FIRST_NAME').fill(nameUser);
     await page.locator('#GEN_INPUT_ACCOUNT_CREATE_PASSWORD').fill('teste@teste123');
-    await page.getByRole('button', { name: 'Create account' }).click();
-    await page.getByRole('button', { name: 'Create account' }).click();
+    await page.getByRole('button', { name: 'Create account' }).click({force: true});
 
     // Esperar por uma resposta ou navegação
     try {
