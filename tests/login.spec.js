@@ -69,3 +69,15 @@ test.describe('Testes em sequência', () => {
     
   });
 });
+
+test('Teste de login inválido', async ({ page }) => {
+  await page.goto('https://app.go2atlas.com/version-test/account_login?lang=en_us');
+  
+  await page.getByRole('button', { name: 'Accept All' }).click();
+  await page.locator('#GEN_INPUT_ACCOUNT_LOGIN_EMAIL').fill('teste@teste.com');
+  await page.locator('#GEN_INPUT_ACCOUNT_LOGIN_PASSWORD').fill('teste@teste123');
+  await page.getByRole('button', { name: 'Login' }).click();
+  
+  const msgErro = page.getByText('SorryWe didn\'t find an');
+  await expect(msgErro).toBeVisible();
+});
