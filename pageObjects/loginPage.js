@@ -1,30 +1,34 @@
-class LoginPage{
-    constructor(page){
+class LoginPage {
+    constructor(page) {
         this.page = page;
+
+        // Isolando locators como atributos de classe
+        this.botaoAceitarCookies = page.getByRole('button', { name: 'Accept All' });
+        this.campoEmail = page.locator('#GEN_INPUT_ACCOUNT_LOGIN_EMAIL');
+        this.campoSenha = page.locator('#GEN_INPUT_ACCOUNT_LOGIN_PASSWORD');
+        this.botaoLogin = page.getByRole('button', { name: 'Login' });
+        this.mensagemDeErro = page.getByText('SorryWe didn\'t find an');
     }
 
-    async aceitarCookies(){
-        const botaoAceitarCookies = await this.page.getByRole('button', {name: 'Accept All'});
-        await botaoAceitarCookies.click();
-    }
-    
-
-    async preencherEmailESenha(email, senha){
-        const campoEmail = await this.page.locator('#GEN_INPUT_ACCOUNT_LOGIN_EMAIL');
-        await campoEmail.fill(email);
-
-        const campoSenha = await this.page.locator('#GEN_INPUT_ACCOUNT_LOGIN_PASSWORD');
-        await campoSenha.fill(senha);
+    async aceitarCookies() {
+        await this.botaoAceitarCookies.click();
     }
 
-    async clicarEmLogar(){
-        const botaoLogin = await this.page.getByRole('button', { name: 'Login' });
-        await botaoLogin.click();
+    async preencherEmail(email, ) {
+        await this.campoEmail.fill(email);
     }
 
-    async verificarMensagemDeErro(){
-        const mensagemDeErro = await this.page.getByText('SorryWe didn\'t find an');
-        return mensagemDeErro;
+    async preencherEmailESenha(email, senha) {
+        await this.campoEmail.fill(email);
+        await this.campoSenha.fill(senha);
+    }
+
+    async clicarEmLogar() {
+        await this.botaoLogin.click();
+    }
+
+    async verificarMensagemDeErro() {
+        return this.mensagemDeErro;
     }
 }
 
